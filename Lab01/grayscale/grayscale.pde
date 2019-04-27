@@ -1,4 +1,4 @@
-HScrollbar hs1;
+HScrollbar hs1,hs2;
 PGraphics pg, pg2, pghist;
 PImage img2,img1,img;
 int halfImage = 200*200/2;
@@ -16,11 +16,13 @@ void setup() {
   img1 = loadImage("baboon.png");
   img2 = loadImage("lena.png");
   hs1 = new HScrollbar(50,515,450,10,1);
+  hs2 = new HScrollbar(50,535,450,10,1);
   // xpos ypos ancho alto loose
 }
   
 void draw() {
-  int imgpos = int(map(hs1.getPos(),hs1.sposMin,hs1.sposMax,0,249));
+  int val1 = int(map(hs1.getPos(),hs1.sposMin,hs1.sposMax,0,249));
+  int val2 = int(map(hs2.getPos(),hs2.sposMin,hs2.sposMax,0,249));
   img = img2;
   //imagen original
   pg.beginDraw();
@@ -61,11 +63,9 @@ void draw() {
   
   image(pghist,50,300);
   hs1.update();
+  hs2.update();
   hs1.display();
-  print(imgpos);
-//  print(hs1.swidth);
-}
-void update(int x,int y){
+  hs2.display();
 }
 class HScrollbar {
   int swidth, sheight;    // width and height of bar
