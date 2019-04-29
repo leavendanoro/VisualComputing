@@ -34,7 +34,7 @@ void draw() {
   pg2.loadPixels();
   for (int x = 0; x < pg.width; x++) {
     for (int y = 0; y < pg.height; y++ ) {
-      color c = convolution(x, y, matrix, matrixsize, img);
+      color c = convolution(x, y, matrix, matrixsize, pg);
       int loc = x + y*pg.width;
       pg2.pixels[loc] = c;
     }
@@ -44,7 +44,7 @@ void draw() {
   image(pg, 0, 0);
   image(pg2,210,0);
 }
-color convolution(int x, int y, float[][] matrix, int matrixsize, PImage img)
+color convolution(int x, int y, float[][] matrix, int matrixsize, PGraphics pg)
 {
   float rtotal = 0.0;
   float gtotal = 0.0;
@@ -54,11 +54,11 @@ color convolution(int x, int y, float[][] matrix, int matrixsize, PImage img)
     for (int j= 0; j < matrixsize; j++){
       int xloc = x+i-offset;
       int yloc = y+j-offset;
-      int loc = xloc + img.width*yloc;
-      loc = constrain(loc,0,img.pixels.length-1);
-      rtotal += (red(img.pixels[loc]) * matrix[i][j]);
-      gtotal += (green(img.pixels[loc]) * matrix[i][j]);
-      btotal += (blue(img.pixels[loc]) * matrix[i][j]);
+      int loc = xloc + pg.width*yloc;
+      loc = constrain(loc,0,pg.pixels.length-1);
+      rtotal += (red(pg.pixels[loc]) * matrix[i][j]);
+      gtotal += (green(pg.pixels[loc]) * matrix[i][j]);
+      btotal += (blue(pg.pixels[loc]) * matrix[i][j]);
     }
   }
   rtotal = constrain(rtotal, 0, 255);
