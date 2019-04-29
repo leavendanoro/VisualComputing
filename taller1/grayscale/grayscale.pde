@@ -8,6 +8,7 @@ float red,blue,green;
 int grey;
 color bnw;
 int[] histogram = new int[256];
+int[]range = new int[2];
 void setup() {
   size(550, 550);
   pg = createGraphics(200, 200);
@@ -23,6 +24,13 @@ void setup() {
 void draw() {
   int val1 = int(map(hs1.getPos(),hs1.sposMin,hs1.sposMax,0,249));
   int val2 = int(map(hs2.getPos(),hs2.sposMin,hs2.sposMax,0,249));
+  if(val1 == val2){
+    int[] temp ={0, 255};
+    range = temp;
+  }else{
+    int[] temp = {val1,val2};
+    range = sort(temp);
+  }
   img = img2;
   //imagen original
   pg.beginDraw();
@@ -44,18 +52,26 @@ void draw() {
      grey = (int)(red * 0.2126 + green * 0.7152 + blue * 0.0722);
      histogram[grey]++;
      bnw = color(grey);
-     pg2.set(i,j,bnw);
+     if(range[0]<=grey && grey<=range[1]){
+       pg2.set(i,j,bnw);
+     }
+     
    }
   }
   pg2.endDraw();
   image(pg2,300,50);
   int histMax = max(histogram);
   pghist.beginDraw();
-  stroke(255);
   strokeWeight(1);
   for(int i = 0; i < pghist.width;i++){
+
     int which = int(map(i,0, pghist.width,0,255));
     int y = int(map(histogram[which],0,histMax,pghist.height,0));
+    if(range[0]<=which && which <=range[1]){
+      stroke(0);
+    }else{
+      stroke(255);
+    }
     line(i+50,pghist.height+300,i+50,y+300);
     //rect(i,y+300-pghist.height,2,y);
   }
