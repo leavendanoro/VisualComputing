@@ -1,23 +1,20 @@
-float x,zoom;
-boolean count;
-float[] values;
+float zoom;
 float inc = .05;
+int circles,spacing;
 void setup(){
   size (550, 550);
-  x = width;
-  count = true;
-  values = new float[2];
   smooth();
   zoom = 50;
+  circles = 5000;
+  spacing = 4;
 }
 void draw() {
   translate(width/2,height/2);
   background (0);
-  strokeWeight(1);
   zoom = constrain(zoom,0,100);
   scale(zoom);
   fill(255);
-  for(int i = 5000;i>0;i-=4){
+  for(int i = circles;i>0;i-=spacing){
       circle(0,0,i);
   }
 }

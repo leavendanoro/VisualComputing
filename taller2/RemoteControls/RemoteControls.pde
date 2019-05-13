@@ -5,13 +5,16 @@ void setup(){
   size(700,400);
   c1 = color(27, 56, 38);
   c2 = color(103, 247, 163);
+  //tamaño de los rectangulos
   sqwidth =50;
   sqheight = 100;
+  //Parametros para el cambio de color
   a = 500;
   b = 500.0;;
 }
 void draw(){
   noStroke();
+  //Limitación de las posiciones en x y los tamaños en y de los rectangulos que se mueven
   x = constrain(x,0,100);
   y = constrain(y,sqheight,2*sqheight);
   yp = constrain(yp,0,50);
