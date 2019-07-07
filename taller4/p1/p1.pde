@@ -1,15 +1,7 @@
 
 // Texture from Jason Liebig's FLICKR collection of vintage labels and wrappers:
 // http://www.flickr.com/photos/jasonliebigstuff/3739263136/in/photostream/
-/*float[][] matrix = { { -1, -1, -1 },
-                     { -1,  8, -1 },
-                     { -1, -1, -1 } };
-/* float[][] matrix = { { 0, -1, 0 },
-                     { -1,  5, -1 },
-                     { 0, -1, 0 } };
-float[][] matrix = { { 0.1111, 0.1111, 0.1111 },
-                     { 0.1111,  0.1111, 0.1111 },
-                     { 0.1111, 0.1111,0.1111 } };
+/*
  float[][] matrix = { { 0.0625, 0.125, 0.0625 },
                      { 0.125,  0.25, 0.125 },
                      { 0.0625, 0.125,0.0625 } };*/
@@ -48,6 +40,28 @@ void setMask(){
   convolutionShader.set("f7",f7);
   convolutionShader.set("f8",f8);
   convolutionShader.set("f9",f9);
+}
+void keyPressed(){
+  if(key == '1'){
+    f1 = f2  = f3 = f4 = f5 = f6 = f7 = f8 = f9 = 0.1111;         //blur
+  }if(key == '2'){
+    f1 = f3 = f7 = f9 = f2 = f4 = f6 = f8 = -1;                   //edge detection
+    f5 = 8;
+  }if(key == '3'){
+    f1 = f3 = f7 = f9 = 0;                                        //sharpen
+    f2 = f4 = f6 = f8 = -1;
+    f5 = 5;
+  }if(key == '4'){
+    f1 = f3 = f7 = f9 = 0.0625;                                   //gaussian blur
+    f2 = f4 = f6 = f8 = 0.125;
+    f5 = 0.25;
+  }if(key == '5'){
+    f1 = -2;                                                      //sobel
+    f3 = f7 = 0;
+    f2 = f4 = 1;
+    f5 = f6 = f8 = 1;
+    f9 = 2;
+  }
 }
 PShape createCan(float r, float h, int detail, PImage tex) {
   textureMode(NORMAL);
