@@ -1,11 +1,6 @@
 
-// Texture from Jason Liebig's FLICKR collection of vintage labels and wrappers:
-// http://www.flickr.com/photos/jasonliebigstuff/3739263136/in/photostream/
-/*
- float[][] matrix = { { 0.0625, 0.125, 0.0625 },
-                     { 0.125,  0.25, 0.125 },
-                     { 0.0625, 0.125,0.0625 } };*/
-
+import processing.video.*;
+Movie movie,m1;
 PImage label;
 PShape can;
 float angle;
@@ -14,10 +9,17 @@ PShader convolutionShader;
 
 void setup() {
   size(640, 360, P3D);
+  m1 = new Movie(this, "xmas.mp4");
+  m1.loop();
+  movie = m1;
   label = loadImage("lachoy.jpg");
   can = createCan(100, 200, 32, label);
   f1 = f2  = f3 = f4 = f5 = f6 = f7 = f8 = f9 = 0.1111;
   convolutionShader = loadShader("convolutionfrag.glsl");
+}
+
+void movieEvent(Movie m) {
+  m.read();
 }
 
 void draw() {    
@@ -61,6 +63,10 @@ void keyPressed(){
     f2 = f4 = 1;
     f5 = f6 = f8 = 1;
     f9 = 2;
+  }if(key == 'i'){
+    can = createCan(100, 200, 32, label);
+  }if(key == 'v'){
+    can = createCan(100, 200, 32, movie);
   }
 }
 PShape createCan(float r, float h, int detail, PImage tex) {
