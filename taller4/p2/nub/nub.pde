@@ -21,14 +21,18 @@ void setup() {
   o1 = new Node(scene,can);
   l1 = new Node(scene,sphere);
   l1.setPickingThreshold(0);
-  l1.randomize();
-  shader = loadShader("lightingfrag.glsl");
+  l1.randomize();/*
+  l2 = new Node(scene,sphere);
+  l2.setPickingThreshold(0);
+  l2.randomize();*/
+  shader = loadShader("lightingfrag.glsl","lightingvert.glsl");
 }
 void draw(){
   background(0);
   //Vector l1Position = scene.eye().location(l1.position());
   shader(shader);
-  pointLight(255, 255, 255, l1.position().x(), l1.position().y(), 200);
+  pointLight(red(c1), green(c1), blue(c1), l1.position().x(), l1.position().y(), l1.position().z());
+//  pointLight(255, 255, 255, l2.position().x(), l2.position().y(), l2.position().z());
   scene.render();
   //shader.set("c1l1",c1);
 }
@@ -58,6 +62,6 @@ void mouseDragged(){
   if(scene.trackedNode() == null){
     scene.spin(scene.eye());
   }else{
-    scene.translate(l1);
+    scene.translate();
   } 
 }
